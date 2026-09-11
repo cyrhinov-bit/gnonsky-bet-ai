@@ -1,11 +1,14 @@
 import React from 'react';
-import { Sparkles, LogOut } from 'lucide-react';
+import { Sparkles, LogOut, Download } from 'lucide-react';
+import { usePWAInstall } from '../hooks/usePWAInstall';
 
 interface Props {
   onLogout?: () => void;
 }
 
 export const Header: React.FC<Props> = ({ onLogout }) => {
+  const { isInstallable, installApp } = usePWAInstall();
+
   return (
     <header className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
       <div className="h-16 max-w-lg mx-auto px-4 flex items-center justify-between">
@@ -31,6 +34,17 @@ export const Header: React.FC<Props> = ({ onLogout }) => {
         </div>
 
         <div className="flex items-center gap-2">
+          {isInstallable && (
+            <button
+              onClick={() => installApp()}
+              title="Installer l'application"
+              className="px-2.5 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 flex items-center gap-1 text-xs font-display font-bold transition-all shadow-sm active:scale-95"
+            >
+              <Download className="w-3.5 h-3.5 text-blue-600" />
+              <span className="hidden xs:inline">Installer</span>
+            </button>
+          )}
+
           <div className="hidden sm:flex flex-col items-end">
             <span className="font-mono text-[11px] text-blue-600 font-bold">SYNCHRO LIVE</span>
             <span className="font-mono text-[10px] text-slate-400">100% Cotes</span>

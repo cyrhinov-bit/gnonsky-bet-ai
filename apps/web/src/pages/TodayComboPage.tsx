@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { apiClient } from '../services/apiClient';
 import { DailyCombo } from '@football/types';
 import { MatchSelectionCard } from '../components/MatchSelectionCard';
+import { PWAInstallBanner } from '../components/PWAInstallBanner';
 import { Calendar, ShieldAlert, Info, RefreshCw } from 'lucide-react';
 
 export const TodayComboPage: React.FC = () => {
@@ -67,6 +68,9 @@ export const TodayComboPage: React.FC = () => {
 
   return (
     <div className="space-y-4 pb-12">
+      {/* PWA 1-Click Install Banner */}
+      <PWAInstallBanner />
+
       {/* Date & Meta */}
       <div className="flex items-center justify-between pt-1">
         <div className="flex items-center gap-1.5 text-slate-700">
