@@ -12,18 +12,21 @@ import { Logger } from './utils/logger';
 
 const app = express();
 
+// Enable Trust Proxy for Render / Heroku / Reverse Proxies
+app.set('trust proxy', 1);
+
 // Security & Middlewares
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 
-// Rate Limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 200, // limit each IP to 200 requests per window
+// Relaxed Rate Limiting for API routes (2000 requests per 15 minutes)
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 2000,
   standardHeaders: true,
-  legacyHeaders: false
+  legacyHeaders: false,
+  validate: { trustProxy: false }
 });
-app.use(limiter);
 
 // Health Check
 app.get('/health', (req, res) => {
@@ -35,7 +38,8 @@ app.get('/health', (req, res) => {
   });
 });
 
-// API Routes
+// API Routes (Protected by generous rate limit)
+app.use('/api', apiLimiter);
 app.use('/api/combo', comboRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/jobs', jobRouter);
