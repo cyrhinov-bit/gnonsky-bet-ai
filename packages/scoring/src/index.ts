@@ -57,7 +57,7 @@ export class ScoringEngine {
     // 3. Recent Form Score (0 - 100) -> 15%
     let formScore = 70; // Baseline
     if (stats.recent_form && stats.recent_form.length > 0) {
-      const winCount = stats.recent_form.filter(f => f.toUpperCase() === 'W').length;
+      const winCount = stats.recent_form.filter((f: string) => f.toUpperCase() === 'W').length;
       formScore = Math.min(100, (winCount / stats.recent_form.length) * 100 + 20);
     }
 
@@ -90,7 +90,7 @@ export class ScoringEngine {
     if (stats.h2h_data && stats.h2h_data.length > 0) {
       const matchCount = stats.h2h_data.length;
       let matchingCriteriaCount = 0;
-      stats.h2h_data.forEach(h => {
+      stats.h2h_data.forEach((h: any) => {
         if (market === 'OVER_2_5' && (h.home_score + h.away_score >= 3)) matchingCriteriaCount++;
         if (market === 'BTTS_YES' && (h.home_score > 0 && h.away_score > 0)) matchingCriteriaCount++;
       });

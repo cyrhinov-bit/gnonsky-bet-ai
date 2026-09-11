@@ -8,10 +8,12 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces --if-present",
+    "build:packages": "npm run build --workspace=@football/types && npm run build --workspace=@football/validation && npm run build --workspace=@football/scoring && npm run build --workspace=@football/prompts && npm run build --workspace=@football/ui",
+    "build:apps": "npm run build --workspace=@football/web && npm run build --workspace=@football/api",
+    "build": "npm run build:packages && npm run build:apps",
     "test": "npm run test --workspaces --if-present",
-    "dev:api": "npm run dev --workspace=apps/api",
-    "dev:web": "npm run dev --workspace=apps/web",
+    "dev:api": "npm run dev --workspace=@football/api",
+    "dev:web": "npm run dev --workspace=@football/web",
     "dev:mobile": "npm run start --workspace=apps/mobile",
     "lint": "npm run lint --workspaces --if-present"
   },
