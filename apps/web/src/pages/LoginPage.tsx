@@ -18,7 +18,13 @@ export const LoginPage: React.FC<Props> = ({ onLoginSuccess }) => {
 
     setTimeout(() => {
       if (accessCode.trim() === 'M@jorix90') {
-        localStorage.setItem('betpulse_auth_token', 'AUTH_VALID_MAJORIX90');
+        try {
+          localStorage.setItem('gnonsky_auth_token', 'AUTH_VALID_MAJORIX90');
+          localStorage.setItem('gnonsky_logged_in', 'true');
+          localStorage.setItem('betpulse_auth_token', 'AUTH_VALID_MAJORIX90');
+        } catch (e) {
+          console.error(e);
+        }
         onLoginSuccess();
       } else {
         setError('Code d\'accès incorrect. Veuillez vérifier votre clé d\'autorisation.');

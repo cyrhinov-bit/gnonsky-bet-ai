@@ -9,15 +9,35 @@ import { LoginPage } from './pages/LoginPage';
 
 export const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
-    return localStorage.getItem('betpulse_auth_token') === 'AUTH_VALID_MAJORIX90';
+    try {
+      return (
+        localStorage.getItem('gnonsky_auth_token') === 'AUTH_VALID_MAJORIX90' ||
+        localStorage.getItem('gnonsky_logged_in') === 'true' ||
+        localStorage.getItem('betpulse_auth_token') === 'AUTH_VALID_MAJORIX90'
+      );
+    } catch {
+      return false;
+    }
   });
 
   const handleLoginSuccess = () => {
+    try {
+      localStorage.setItem('gnonsky_auth_token', 'AUTH_VALID_MAJORIX90');
+      localStorage.setItem('gnonsky_logged_in', 'true');
+    } catch (e) {
+      console.error(e);
+    }
     setIsAuthenticated(true);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('betpulse_auth_token');
+    try {
+      localStorage.removeItem('gnonsky_auth_token');
+      localStorage.removeItem('gnonsky_logged_in');
+      localStorage.removeItem('betpulse_auth_token');
+    } catch (e) {
+      console.error(e);
+    }
     setIsAuthenticated(false);
   };
 
