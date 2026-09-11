@@ -1,0 +1,35 @@
+services:
+  # ---------------------------------------------------------
+  # GNONSKY BET AI — ALL-IN-ONE WEB SERVICE (API + PWA FRONTEND)
+  # ---------------------------------------------------------
+  - type: web
+    name: gnonsky-bet-ai
+    env: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm install && npm run build
+    startCommand: npm run start --workspace=apps/api
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: OPENAI_MODEL
+        value: gpt-4o
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: SUPABASE_URL
+        value: https://wihwpztbsvvezecdvtne.supabase.co
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_API_KEY
+        value: admin-secret-key-123
+      - key: CRON_SCHEDULE
+        value: "0 8 * * *"
+

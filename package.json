@@ -1,0 +1,30 @@
+{
+  "name": "football-predictor-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Gnonsky Bet AI - Football Combo Predictor Monorepo (Web PWA, Mobile Expo, Node.js API, Shared Packages)",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "dev:api": "npm run dev --workspace=apps/api",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "dev:mobile": "npm run start --workspace=apps/mobile",
+    "lint": "npm run lint --workspaces --if-present"
+  },
+  "keywords": [
+    "football",
+    "predictor",
+    "betstudy",
+    "ai",
+    "monorepo",
+    "react-native",
+    "pwa"
+  ],
+  "author": "BetPulse Precision Team",
+  "license": "UNLICENSED"
+}
+
